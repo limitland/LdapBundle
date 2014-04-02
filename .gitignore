@@ -14,3 +14,9 @@ app/config/parameters.yml
 
 # Composer
 composer.phar
+
+# Eclipse
+.settings
+.project
+.buildpath
+
