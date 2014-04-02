@@ -44,6 +44,94 @@ Add the following line in app/AppKernel.php to register the bundle:
         new Limitland\LdapBundle\LimitlandLdapBundle(),
     );
 
+
+### Bundle configuration
+
+Add the following lines to your app/routing.yml to enable the authentication and demo login dialog:
+
+	limitland_ldap_auth:
+    	resource: "@LimitlandLdapBundle/Resources/config/routing.yml"
+    	prefix:   /
+	
+	limitland_ldap_login:
+    	resource: "@LimitlandLdapBundle/Controller/"
+    	type:     annotation
+    	prefix:   /
+
+
+And add the following lines to your app/security.yml:
+
+	security:
+	
+	    encoders:
+        	Limitland\LdapBundle\Security\User\LdapUser:
+            	algorithm: plaintext
+	
+		providers:
+        	ldap:
+            	id: limitland_ldap.user_provider
+	
+	    firewalls:
+	        login_firewall:
+	            pattern: ^/login$
+	            anonymous: ~
+	        secured_area:
+	            provider: ldap
+	            pattern: ^/
+	            form_login:
+	                check_path: login_check
+	                login_path: login
+	                use_forward: false
+	                always_use_default_target_path: false
+	                default_target_path: /
+	                target_path_parameter: _target_path
+	                use_referer: true
+	                failure_path: /login
+	                failure_forward: false
+	                username_parameter: _username
+	                password_parameter: _password
+	                csrf_parameter: _csrf_token
+	                intention: authenticate
+	                post_only: true
+	                remember_me: false
+	            logout:
+	                path: /logout
+	                target: /login
+	                invalidate_session: true
+	            anonymous: ~
+
+	    access_control:
+	        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+	        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+
+
+Add the following lines to your app/config/config.yml and edit the values to match your LDAP installation:
+
+	limitland_ldap:
+	    client:
+	        host:               "localhost"
+	        port:               389
+	        useSsl:             false
+	        username:           "cn=admin,dc=limitland,dc=lan"
+	        password:           "password"
+	        bindRequiresDn:     false
+	        baseDn:             "dc=limitland,dc=lan"
+	    users:
+	        baseDn:             "dc=limitland,dc=lan"
+	        filter:             "(objectClass=person)"
+	        nameAttribute:      "cn"
+	    roles:
+	        baseDn:             "dc=limitland,dc=lan"
+	        filter:             "(objectClass=groupOfNames)"
+	        nameAttribute:      "cn"
+	        memberAttribute:    "member"
+
+
+LDAP setup
+----------
+
+A guide to setting up your LDAP server ist not included, yet. It will follow in future versions of this bundle. However, tehre is a SETUP directory within the bundle, with some demo ldif records and a script that might be useful. 
+
 	
 Appendix
 --------
