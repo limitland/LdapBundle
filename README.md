@@ -1,6 +1,7 @@
 Limitland/LdapBundle
 ====================
 
+
 This bundle provides User authentication from an LDAP database using the ZendFramework 2 LDAP module. 
 Also User Roles are applied from the LDAP database using the groupOfNames Objectclass. 
 
@@ -44,12 +45,16 @@ Add the following line in app/AppKernel.php to register the bundle:
     );
 
 	
-### Bundle installation
+Appendix
+--------
+
 
 Thanks to the authors of other LdapBundles I have found online:
 
-opensky/LdapBundle by 
+opensky/LdapBundle by opensky
 https://github.com/opensky/LdapBundle
 
 FR3DLdapBundle by Maks3w:
 https://github.com/Maks3w/FR3DLdapBundle
+
+
