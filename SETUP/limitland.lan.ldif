@@ -1,0 +1,16 @@
+# extended LDIF
+#
+# LDAPv3
+# base <dc=DOMAIN,dc=SUFFIX> (default) with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# DOMAIN.SUFFIX
+dn: dc=DOMAIN,dc=net
+objectClass: organization
+objectClass: dcObject
+dc: DOMAIN
+o: DOMAIN
+description: DOMAIN
+

@@ -1,0 +1,5 @@
+dn: cn=users,dc=limitland,dc=lan
+cn: users
+description: directory users
+objectclass: groupofNames
+member: cn=demouser,dc=limitland,dc=lan 

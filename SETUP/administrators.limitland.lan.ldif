@@ -1,0 +1,5 @@
+dn: cn=administrators,dc=limitland,dc=lan
+cn: administrators
+description: directory administrators
+objectclass: groupofNames
+member: cn=demouser,dc=limitland,dc=lan 

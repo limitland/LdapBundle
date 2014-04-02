@@ -1,0 +1,28 @@
+# extended LDIF
+#
+# LDAPv3
+# base <dc=limitland,dc=lan> (default) with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# demouser, limitland.lan
+dn: cn=demouser,dc=limitland,dc=lan
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: demouser
+sn: demouser
+uid: demouser
+uidNumber: 30
+gidNumber: 8
+homeDirectory: /mnt/Data/vsftpd/demouser
+userPassword: demopass
+shadowMin: 0
+shadowMax: 999999
+shadowWarning: 7
+shadowInactive: -1
+shadowExpire: -1
+shadowFlag: 0
+

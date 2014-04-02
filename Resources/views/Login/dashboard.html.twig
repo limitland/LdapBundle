@@ -1,0 +1,12 @@
+{% extends "LimitlandLdapBundle:Login:layout.html.twig" %}
+
+{% block title "limitland LdapBundle - Hello" %}
+
+{% block content_header '' %}
+
+{% block content %}
+
+Hello {{ app.user }}<br>
+<a href="{{ path('logout') }}">Log out</a>
+
+{% endblock %}

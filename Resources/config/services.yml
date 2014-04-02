@@ -1,0 +1,24 @@
+parameters:
+    limitland_ldap.user_provider.class: Limitland\LdapBundle\Security\User\LdapUserProvider
+    limitland_ldap.db_manager.class: Limitland\LdapBundle\LDAP\LdapManager
+    limitland_ldap.db_connection.class: Limitland\LdapBundle\LDAP\LdapConnection
+    
+
+services:
+    limitland_ldap.user_provider:
+        class: "%limitland_ldap.user_provider.class%"
+        arguments:
+            - "@limitland_ldap.db_manager"
+            - "%limitland_ldap.params%"
+    
+    limitland_ldap.db_manager:
+        class: "%limitland_ldap.db_manager.class%"
+        arguments:
+            - "@limitland_ldap.db_connection"
+            - "%limitland_ldap.params%"
+    
+    limitland_ldap.db_connection:
+        class: "%limitland_ldap.db_connection.class%"
+        arguments:
+            - "%limitland_ldap.params%"
+
