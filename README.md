@@ -130,7 +130,7 @@ Add the following lines to your app/config/config.yml and edit the values to mat
 LDAP setup
 ----------
 
-A guide to setting up your LDAP server ist not included, yet. It will follow in future versions of this bundle. However, tehre is a SETUP directory within the bundle, with some demo ldif records and a script that might be useful. 
+A guide to setting up your LDAP server ist not included, yet. It will follow in future versions of this bundle. However, there is a SETUP directory within the bundle, with some demo ldif records and a script that might be useful. 
 
 	
 Appendix
