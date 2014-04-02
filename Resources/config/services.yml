@@ -1,7 +1,7 @@
 parameters:
     limitland_ldap.user_provider.class: Limitland\LdapBundle\Security\User\LdapUserProvider
-    limitland_ldap.db_manager.class: Limitland\LdapBundle\LDAP\LdapManager
-    limitland_ldap.db_connection.class: Limitland\LdapBundle\LDAP\LdapConnection
+    limitland_ldap.db_manager.class: Limitland\LdapBundle\Ldap\LdapManager
+    limitland_ldap.db_connection.class: Limitland\LdapBundle\Ldap\LdapConnection
     
 
 services:

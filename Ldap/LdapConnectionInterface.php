@@ -1,6 +1,6 @@
 <?php
 
-namespace Limitland\LdapBundle\LDAP;
+namespace Limitland\LdapBundle\Ldap;
 
 interface LdapConnectionInterface
 {

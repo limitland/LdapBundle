@@ -8,14 +8,12 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-
-
-use Limitland\LdapBundle\LDAP\LdapManagerInterface;
+use Limitland\LdapBundle\Ldap\LdapManagerInterface;
 
 class LdapUserProvider implements UserProviderInterface
 {
     /**
-     * @var \Limitland\LdapBundle\LDAP\LdapManagerInterface
+     * @var \Limitland\LdapBundle\Ldap\LdapManagerInterface
      */
     private $ldapManager;
     private $params;
@@ -23,7 +21,7 @@ class LdapUserProvider implements UserProviderInterface
     /**
      * Constructor
      *
-     * @param \Limitland\LdapBundle\LDAP\LdapManagerInterface $ldapManager
+     * @param \Limitland\LdapBundle\Ldap\LdapManagerInterface $ldapManager
      */
     public function __construct(LdapManagerInterface $ldapManager, array $params)
     {
