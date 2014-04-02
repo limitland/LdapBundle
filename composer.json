@@ -2,7 +2,7 @@
     "name": "limitland/ldap-bundle",
     "type": "symfony-bundle",
     "description": "This bundle provides LDAP user authentication for Symfony2 framework using the Zend Framework 2 component.",
-    "keywords": ["ldap"],
+    "keywords": ["ldap", "authentication"],
     "license": "MIT",
     "homepage": "https://github.com/limitland/LdapBundle",
     "authors": [
@@ -22,5 +22,4 @@
             "Limitland\\LdapBundle": ""
         }
     },
-    "target-dir": "Limitland/LdapBundle"
 }
