@@ -29,6 +29,9 @@ class LdapUserProvider implements UserProviderInterface
         $this->params = $params;
     }
     
+    /**
+     * @inheritDoc
+     */
     public function loadUserByUsername($username)
     {
         $success = $this->ldapManager->bind();
@@ -53,7 +56,10 @@ class LdapUserProvider implements UserProviderInterface
             sprintf('Username "%s" does not exist.', $username)
         );
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof LdapUser) {
@@ -64,7 +70,10 @@ class LdapUserProvider implements UserProviderInterface
 
         return $this->loadUserByUsername($user->getUsername());
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function supportsClass($class)
     {
         return $class === 'Limitland\LdapBundle\Security\User\LdapUser';

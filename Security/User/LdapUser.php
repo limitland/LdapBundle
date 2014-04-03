@@ -17,32 +17,47 @@ class LdapUser implements UserInterface, EquatableInterface
         $this->password = $password;
         $this->roles = $roles;
     }
-    
+
     public function __toString()
     {
         return $this->username;
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function getRoles()
     {
         return $this->roles;
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function getPassword()
     {
         return $this->password;
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function getSalt()
     {
         return null;
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function getUsername()
     {
         return $this->username;
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function eraseCredentials()
     {
         $this->password = '';

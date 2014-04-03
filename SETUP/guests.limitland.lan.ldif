@@ -1,0 +1,5 @@
+dn: cn=guests,dc=limitland,dc=lan
+cn: guests
+description: directory guests
+objectclass: groupofNames
+member: 

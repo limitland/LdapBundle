@@ -4,17 +4,29 @@ namespace Limitland\LdapBundle\Ldap;
 
 use Zend\Ldap\Ldap;
 
+/**
+ * Class LdapConnection
+ *
+ */
 class LdapConnection implements LdapConnectionInterface
 {
     private $params;
     private $ldap;
 
+    /**
+     * Initialize the connection.
+     * 
+     * @param array $params
+     */
     public function __construct(array $params)
     {
         $this->params = $params;
         $this->ldap = false;
     }
     
+    /**
+     * Connect to the LDAP Server.
+     */
     public function connect()
     {
         // Initialize the Zend Ldap Module.
@@ -22,18 +34,41 @@ class LdapConnection implements LdapConnectionInterface
                 or die( "Error connecting to host ".$this->params['client']['host'].":".$this->params['client']['port']."." );
     }
     
-    public function bind()
+    /**
+     * Bind to the LDAP server instance.
+     * 
+     * @param unknown $username
+     * @param unknown $password
+     * @return boolean
+     * 
+     * (non-PHPdoc)
+     * @see \Limitland\LdapBundle\Ldap\LdapConnectionInterface::bind()
+     */
+    public function bind($username = null, $password = null)
     {
         if( ! $this->ldap ) {
             $this->connect();
         }
         if( $this->ldap ) {
-            $this->ldap->bind();
+            if( empty($username) && empty($password) ) {
+                // The Zend Framework will bind with the username and password from the connection configuration, 
+                // see http://framework.zend.com/manual/2.3/en/modules/zend.ldap.introduction.html
+                $this->ldap->bind();
+            }
+            else {
+                $this->ldap->bind($username, $password);
+            }
             return true;
         }
         return false;
     }
     
+    /**
+     * Return an LDAP object by dn or false.
+     * 
+     * (non-PHPdoc)
+     * @see \Limitland\LdapBundle\Ldap\LdapConnectionInterface::getEntry()
+     */
     public function getEntry( $dn )
     {
         $data = $this->ldap->getEntry($dn);
@@ -41,9 +76,14 @@ class LdapConnection implements LdapConnectionInterface
         return $data;
     }
     
-    public function getGroups()
+    /**
+     * Return a search result.
+     * 
+     * (non-PHPdoc)
+     * @see \Limitland\LdapBundle\Ldap\LdapConnectionInterface::search()
+     */
+    public function search( $filter, $basedn )
     {
-        $result = $this->ldap->search($this->params['roles']['filter'], $this->params['roles']['baseDn']);
-        return $result;
+        return $this->ldap->search( $filter, $basedn );
     }
 }

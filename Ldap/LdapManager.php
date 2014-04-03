@@ -2,24 +2,41 @@
 
 namespace Limitland\LdapBundle\Ldap;
 
+/**
+ * Class LdapManager
+ * 
+ */
 class LdapManager implements LdapManagerInterface
 {
     private $ldapConnection;
-    private $authenticated;
     private $params;
     
+    /**
+     * Initialize the manager.
+     * 
+     * @param LdapConnectionInterface $conn
+     * @param array $params
+     */
     public function __construct(LdapConnectionInterface $conn, array $params)
     {
         $this->ldapConnection = $conn;
-        $this->authenticated = false;
         $this->params = $params;
     }
     
-    public function bind()
+    /**
+     * A Helper function to bind to the server.
+     */
+    public function bind( $username = null, $password = null)
     {
-        return $this->ldapConnection->bind();
+        return $this->ldapConnection->bind( $username, $password );
     }
     
+    /**
+     * Get an LDAP user by username.
+     * 
+     * (non-PHPdoc)
+     * @see \Limitland\LdapBundle\Ldap\LdapManagerInterface::getUserByUsername()
+     */
     public function getUserByUsername( $username )
     {
         $dn = $this->buildDnFromUsername( $username );
@@ -27,26 +44,40 @@ class LdapManager implements LdapManagerInterface
         return $data;
     }
     
+    /**
+     * Get the roles for a username. 
+     * 
+     * (non-PHPdoc)
+     * @see \Limitland\LdapBundle\Ldap\LdapManagerInterface::getRolesForUsername()
+     */
     public function getRolesForUsername( $username ) 
     {
         $dn = $this->buildDnFromUsername( $username );
         $roles = array();
-        $groups = $this->ldapConnection->getGroups();
+        
+        // ($(member=$dn)(objectClass=groupOfNames))
+        $filter = '(&('.$this->params['roles']['memberAttribute'].'='.$dn.')'.$this->params['roles']['filter'].')';
+        $basedn = $this->params['roles']['baseDn'];
+        $groups = $this->ldapConnection->search( $filter, $basedn );
+        
         foreach( $groups as $group ) { // loop the groups
-            foreach( $group[$this->params['roles']['memberAttribute']] as $member ) { // loop the group members
-                if( $member == $dn ) {
-                    $groupname = $group[$this->params['roles']['nameAttribute']][0];
-                    $groupname = 'ROLE_LDAP_'.strtoupper(str_replace(' ', '_', $groupname));
-                    array_push($roles, $groupname);
-                }
-            }
+            $groupname = $group[$this->params['roles']['nameAttribute']][0];
+            $groupname = 'ROLE_LDAP_'.strtoupper(str_replace(' ', '_', $groupname));
+            array_push($roles, $groupname);
         }
+        
         return $roles;
     }
     
-    public function buildDnFromUsername( $string )
+    /**
+     * A helper function to return the dn for a username.
+     * 
+     * @param unknown $username
+     * @return string
+     */
+    public function buildDnFromUsername( $username )
     {
-        $dn = $this->params['users']['nameAttribute'].'='.$string;
+        $dn = $this->params['users']['nameAttribute'].'='.$username;
         $dn .= ','.$this->params['users']['baseDn'];
         return $dn;
     }
