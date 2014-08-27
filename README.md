@@ -132,6 +132,9 @@ Add the following lines to your app/config/config.yml and edit the values to mat
 
 Use the bundle in your Controller like this:
 
+    use Limitland\LdapBundle\Ldap\LdapConnection;
+    use Limitland\LdapBundle\Ldap\LdapManager;
+    
     $conn = new LdapConnection($config['limitland_ldap']);
     $manager = new LdapManager($conn);
     
