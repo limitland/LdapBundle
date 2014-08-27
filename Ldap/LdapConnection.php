@@ -25,6 +25,14 @@ class LdapConnection implements LdapConnectionInterface
     }
     
     /**
+     * Return the connection parameters.
+     */
+    public function getParameters()
+    {
+        return $this->params;
+    }
+    
+    /**
      * Connect to the LDAP Server.
      */
     public function connect()
@@ -46,9 +54,8 @@ class LdapConnection implements LdapConnectionInterface
      */
     public function bind($username = null, $password = null)
     {
-        if( ! $this->ldap ) {
-            $this->connect();
-        }
+        if( ! $this->ldap ) $this->connect();
+        
         if( $this->ldap ) {
             if( empty($username) && empty($password) ) {
                 // The Zend Framework will bind with the username and password from the connection configuration, 
@@ -71,6 +78,8 @@ class LdapConnection implements LdapConnectionInterface
      */
     public function getEntry( $dn )
     {
+        if( ! $this->ldap ) $this->connect();
+        
         $data = $this->ldap->getEntry($dn);
         if( empty($data) ) $data = false;
         return $data;
@@ -84,6 +93,8 @@ class LdapConnection implements LdapConnectionInterface
      */
     public function search( $filter, $basedn )
     {
+        if( ! $this->ldap ) $this->connect();
+        
         return $this->ldap->search( $filter, $basedn );
     }
 }

@@ -17,10 +17,10 @@ class LdapManager implements LdapManagerInterface
      * @param LdapConnectionInterface $conn
      * @param array $params
      */
-    public function __construct(LdapConnectionInterface $conn, array $params)
+    public function __construct(LdapConnectionInterface $conn)
     {
         $this->ldapConnection = $conn;
-        $this->params = $params;
+        $this->params = $conn->getParameters();
     }
     
     /**

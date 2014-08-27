@@ -127,6 +127,19 @@ Add the following lines to your app/config/config.yml and edit the values to mat
 	        memberAttribute:    "member"
 
 
+
+### Using the bundle
+
+Use the bundle in your Controller like this:
+
+    $conn = new LdapConnection($config['limitland_ldap']);
+    $manager = new LdapManager($conn);
+    
+    if( $user = $manager->getUserByUsername('demouser') ) {
+        print_r($user);
+    }
+
+
 LDAP setup
 ----------
 
