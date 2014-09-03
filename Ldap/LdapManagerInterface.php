@@ -5,7 +5,7 @@ interface LdapManagerInterface
 {
     function __construct( LdapConnectionInterface $conn );
     
-    function getUserByUsername( $username );
+    function getRecordByUsername( $username );
     
     function getRolesForUsername( $username );
     

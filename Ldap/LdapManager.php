@@ -37,7 +37,7 @@ class LdapManager implements LdapManagerInterface
      * (non-PHPdoc)
      * @see \Limitland\LdapBundle\Ldap\LdapManagerInterface::getUserByUsername()
      */
-    public function getUserByUsername( $username )
+    public function getRecordByUsername( $username )
     {
         $dn = $this->buildDnFromUsername( $username );
         $data = $this->ldapConnection->getEntry($dn);

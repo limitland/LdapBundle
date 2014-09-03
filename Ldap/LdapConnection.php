@@ -81,8 +81,10 @@ class LdapConnection implements LdapConnectionInterface
         if( ! $this->ldap ) $this->connect();
         
         $data = $this->ldap->getEntry($dn);
-        if( empty($data) ) $data = false;
-        return $data;
+        
+        if( empty($data) ) return false;
+        
+        return new LdapRecord($data);
     }
     
     /**
