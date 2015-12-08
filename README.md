@@ -125,6 +125,7 @@ Add the following lines to your app/config/config.yml and edit the values to mat
 	        filter:             "(objectClass=groupOfNames)"
 	        nameAttribute:      "cn"
 	        memberAttribute:    "member"
+		searchFullDn:	    true
 
 
 

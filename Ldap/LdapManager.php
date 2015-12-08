@@ -56,7 +56,10 @@ class LdapManager implements LdapManagerInterface
         $roles = array();
         
         // ($(member=$dn)(objectClass=groupOfNames))
-        $filter = '(&('.$this->params['roles']['memberAttribute'].'='.$dn.')'.$this->params['roles']['filter'].')';
+        if($this->params['roles']['searchFullDn'] == false)
+            $filter = '(&('.$this->params['roles']['memberAttribute'].'='.$username.')'.$this->params['roles']['filter'].')';
+        else
+            $filter = '(&('.$this->params['roles']['memberAttribute'].'='.$dn.')'.$this->params['roles']['filter'].')';
         $basedn = $this->params['roles']['baseDn'];
         $groups = $this->ldapConnection->search( $filter, $basedn );
         

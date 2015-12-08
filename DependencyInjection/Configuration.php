@@ -80,6 +80,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('filter')->defaultValue('(*)')->end()
                 ->scalarNode('nameAttribute')->defaultValue('cn')->end()
                 ->scalarNode('memberAttribute')->defaultValue('member')->end()
+		->booleanNode('searchFullDn')->defaultTrue()->end()
             ->end()
         ;
     
